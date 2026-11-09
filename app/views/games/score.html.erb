@@ -1,0 +1,18 @@
+<h1 class="display-1 text-center">Result</h1>
+ <div class="container d-flex align-items-center text-center w-25 mx-auto">
+  <div>
+    <% if @is_valid_word && @is_english %>
+      <p><strong>Congratulations!</strong> <%= @answer %> is a valid word!</p>
+    <% end %>
+    <% if @is_valid_word && @is_english == false %>
+      <p>Sorry, but <strong><%= @answer %></strong> does not seem to be an English word...</p>
+    <% end %>
+    <% if @is_english && @is_valid_word == false %>
+      <p>Sorry, but <strong><%= @answer %></strong> cannot be built out of <%= @letters %></p>
+    <% end %>
+    <% if @is_english == false && @is_valid_word == false %>
+      <p>Sorry, but <strong><%= @answer %></strong> is neither English nor can be built from <%= @letters %></p>
+    <% end %>
+    <%= link_to "Play again", new_path%>
+  </div>
+ </div>
