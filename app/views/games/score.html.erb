@@ -8,10 +8,10 @@
       <p>Sorry, but <strong><%= @answer %></strong> does not seem to be an English word...</p>
     <% end %>
     <% if @is_english && @is_valid_word == false %>
-      <p>Sorry, but <strong><%= @answer %></strong> cannot be built out of <%= @letters %></p>
+      <p>Sorry, but <strong><%= @answer %></strong> cannot be built out of <%= @letters.join("") %></p>
     <% end %>
     <% if @is_english == false && @is_valid_word == false %>
-      <p>Sorry, but <strong><%= @answer %></strong> is neither English nor can be built from <%= @letters %></p>
+      <p>Sorry, but <strong><%= @answer %></strong> is neither English nor can be built from <%= @letters.join("") %></p>
     <% end %>
     <%= link_to "Play again", new_path%>
   </div>

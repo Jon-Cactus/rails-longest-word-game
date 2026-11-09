@@ -28,22 +28,14 @@ class GamesController < ApplicationController
   def validate_attempt(dictionary, answer, letters)
     # Check if the word exists in the dictionary
     @is_english = dictionary["found"]
-    # Prepare a hash to compare the occurrence of letters between the user's answer and the provided letters
-    frequency = { letters: {}, answer: {}}
-    # Iterate through letters and push them into the frequency hash
-    letters.each do |letter|
-      frequency[:letters][letter] ?
-      frequency[:letters][letter] += 1 :
-      frequency[:letters][letter] = 1
-    end
-    # Iterate through the user's answer and push them into the frequency hash
-    answer.split("").each do |letter|
-      frequency[:answer][letter.capitalize] ?
-      frequency[:answer][letter.capitalize] += 1 :
-      frequency[:answer][letter.capitalize] = 1
-    end
+
+    letter_frequency = letters.tally
+    answer_frequency = answer.upcase.chars.tally
+    raise
     # Compare the occurrence of letters found in the user's answer vs. the set of letters
     # First checks if the letter exists in both hashes, then ensures that the user's answer's letters appear an equal or fewer amount of times
-    @is_valid_word = frequency[:answer].all? {|letter, count| frequency[:letters][letter] && frequency[:letters][letter] >= count}
+    @is_valid_word = answer_frequency.all? do |letter, count|
+      letter_frequency[letter] && letter_frequency[letter] >= count
+    end
   end
 end
